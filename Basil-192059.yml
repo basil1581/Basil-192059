@@ -1,0 +1,29 @@
+---
+- name: Basil-192059
+  hosts: localhost
+  tasks:
+    - name: install nginx and postgresql
+      become: yes
+      become_user: root
+      apt:
+        pkg:
+         - nginx
+         - postgresql
+        state: present
+        update_cache: yes
+
+    - name: add user "Basil" to remote server
+      group:
+        name: Basil
+        gid: 2011
+        state: present
+
+    - name: add a directory "192059"
+      file:
+        name: 192059
+        path: home/
+        state: directory
+
+    - name: nano remove
+      apt: name=nano state=absent
+
